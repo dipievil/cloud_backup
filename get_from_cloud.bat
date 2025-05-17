@@ -3,8 +3,8 @@ REM Lê variáveis do arquivo paths.ini
 SET "IniFile=paths.ini"
 
 REM Função para ler valor de chave em seção [Paths]
-FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^SourceDir=" "%IniFile%"') DO SET "SourceDir=%%B"
-FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO SET "DestDir=%%B"
+FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^SourceDir=" "%IniFile%"') DO SET "DestDir=%%B"
+FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO SET "SourceDir=%%B"
 
 REM Define the log file name - it will be created in the current directory
 SET LogFile="copy.log"
@@ -55,10 +55,10 @@ ECHO Files copied: >> %LogFile%
 ECHO. >> %LogFile%
 
 ECHO Ensuring backup directory exists: %BackupDir%
-IF NOT EXIST %BackupDir% (
+IF NOT EXIST "%BackupDir%" (
     ECHO Creating backup directory: %BackupDir% >> %LogFile%
     ECHO Creating backup directory: %BackupDir%
-    MKDIR %BackupDir%
+    MKDIR "%BackupDir%"
     IF ERRORLEVEL 1 (
         ECHO ERROR: Could not create backup directory %BackupDir%. Check permissions. >> %LogFile%
         ECHO ERROR: Could not create backup directory %BackupDir%. Check permissions.
