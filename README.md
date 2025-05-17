@@ -8,7 +8,7 @@ This repository contains batch scripts to automate the backup and restoration of
   Restores `.sav` files from the cloud to the local folder, keeping a backup of overwritten files.
 
 - **send_to_cloud.bat**  
-  (Not included in this repository, but a complementary script is expected to upload local files to the cloud.)
+  This script is intended to upload `.sav` files from your local folder to the cloud folder, making a backup of any files that will be overwritten in the cloud.  
 
 ## How to use
 
