@@ -7,7 +7,7 @@ FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^SourceDir=" "%IniFile%"') 
 FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO SET "SourceDir=%%B"
 
 REM Define the log file name - it will be created in the current directory
-SET LogFile="copy.log"
+SET LogFile="get_from_cloud.copy.log"
 
 REM Define the backup directory path (inside the destination folder)
 SET BackupDir=.\backup\got

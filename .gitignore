@@ -1,5 +1,5 @@
 # Ignore logs
-copy.log
+*.copy.log
 
 # Ignore sensitive files
 paths.ini

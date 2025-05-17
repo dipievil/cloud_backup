@@ -2,6 +2,10 @@
 
 This repository contains batch scripts to automate the backup and restoration of game save files between local folders and the cloud.
 
+## Requirements
+
+- Windows 11 or ROBOCOPY
+
 ## Scripts
 
 - **get_from_cloud.bat**  
@@ -40,11 +44,20 @@ The script will:
 - Check if the folders exist.
 - Backup current `.sav` files from the destination folder to a `backup\got` subfolder.
 - Copy all `.sav` files from the source to the destination, except for `Save_Settings.sav`.
-- Generate a detailed log in `copy.log`.
+- Generate a detailed log in `get_from_cloud.copy.log` or `send_to_cloud.copy.log`.
 
 ### 3. Logs
+Each script generates its own log file:  
+- `get_from_cloud.bat` creates `get_from_cloud.copy.log`
+- `send_to_cloud.bat` creates `send_to_cloud.copy.log`
 
-The `copy.log` file will be created in the same folder as the script, containing details of all operations performed.
+These log files are saved in the same folder as the script and contain details of all operations performed.
+
+
+## Using to Steam
+in case to use with a Steam Game to force or fix the cloud game function you can use following command in the games property:
+ c:\scripts\path\get_from_cloud.bat; %command%; c:\scripts\path\send_to-cloud.bat;
+
 
 ## Notes
 
