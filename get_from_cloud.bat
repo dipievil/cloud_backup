@@ -9,13 +9,13 @@ FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO
 REM Define the log file name - it will be created in the current directory
 SET LogFile="copy.log"
 
+REM Define the backup directory path (inside the destination folder)
+SET BackupDir=.\backup\got
+
 ECHO SourceDir: "%SourceDir%"
 ECHO DestDir: %DestDir%
 ECHO BackupDir: %BackupDir%
 ECHO.
-
-REM Define the backup directory path (inside the destination folder)
-SET BackupDir=%DestDir%\backup\got
 
 ECHO Checking if Source directory exists...
 IF NOT EXIST "%SourceDir%" (
