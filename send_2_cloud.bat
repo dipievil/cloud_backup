@@ -1,10 +1,18 @@
 @ECHO OFF
-REM Define source and destination folders
-SET SourceDir=C:\Users\dipi\Documents\My Games\Oblivion Remastered\Saved\SaveGames
-SET DestDir=C:\Users\dipi\OneDrive\Documentos\My Games\Oblivion Remastered\Saved\SaveGames
+REM Lê variáveis do arquivo paths.ini
+SET "IniFile=paths.ini"
+
+REM Função para ler valor de chave em seção [Paths]
+FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^SourceDir=" "%IniFile%"') DO SET "SourceDir=%%B"
+FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO SET "DestDir=%%B"
 
 REM Define the log file name - it will be created in the current directory
 SET LogFile="copy.log"
+
+ECHO SourceDir: %SourceDir%
+ECHO DestDir: %DestDir%
+ECHO BackupDir: %BackupDir%
+ECHO.
 
 REM Define the backup directory path (inside the destination folder)
 SET BackupDir=%SourceDir%\backup\sent

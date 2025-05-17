@@ -9,16 +9,16 @@ FOR /F "tokens=1,* delims==" %%A IN ('findstr /R /C:"^DestDir=" "%IniFile%"') DO
 REM Define the log file name - it will be created in the current directory
 SET LogFile="copy.log"
 
-ECHO SourceDir: %SourceDir%
+ECHO SourceDir: "%SourceDir%"
 ECHO DestDir: %DestDir%
 ECHO BackupDir: %BackupDir%
 ECHO.
 
 REM Define the backup directory path (inside the destination folder)
-SET BackupDir="%DestDir%\backup\got"
+SET BackupDir=%DestDir%\backup\got
 
 ECHO Checking if Source directory exists...
-IF NOT EXIST %SourceDir% (
+IF NOT EXIST "%SourceDir%" (
     ECHO ERROR: Source directory not found!
     ECHO Path: %SourceDir%
     ECHO Please check the path and try again.
@@ -31,27 +31,11 @@ IF NOT EXIST %SourceDir% (
 ECHO.
 
 ECHO Checking if Destination directory exists...
-IF NOT EXIST %DestDir% (
+IF NOT EXIST "%DestDir%" (
     ECHO ERROR: Destination directory not found!
     ECHO Path: %DestDir%
     ECHO Please check the path and try again.
     ECHO If the path is correct, please ensure the directory exists before running the script.
-    ECHO.
-    ECHO INFO: This script can optionally create the destination directory if it's missing.
-    ECHO INFO: To enable this, edit the script file and remove the 'REM' from the beginning of the 'MKDIR %DestDir%' line.
-    ECHO.
-    REM --- Optional code block ---
-    REM MKDIR %DestDir%
-    REM IF ERRORLEVEL 1 (
-    REM   ECHO ERROR: Could not create destination directory: %DestDir% >> %LogFile%
-    REM   ECHO ERROR: Could not create destination directory: %DestDir%
-    REM   PAUSE
-    REM   GOTO :EOF
-    REM ) ELSE (
-    REM   ECHO INFO: Destination directory created: %DestDir% >> %LogFile%
-    REM   ECHO INFO: Destination directory created: %DestDir%
-    REM )
-    REM --- End of optional code block ---
     PAUSE
     GOTO :EOF
 ) ELSE (
@@ -95,7 +79,7 @@ ECHO Starting PRE-BACKUP: Backing up current destination files to %BackupDir%...
 ECHO PRE-BACKUP Phase - %DATE% %TIME% >> %LogFile%
 REM Backup current destination files (*.sav excluding Save_Settings.sav) to the backup folder
 REM /MIR ensures the backup folder is an exact mirror (older backup files might be deleted if not in DestDir anymore)
-ROBOCOPY %DestDir% %BackupDir% *.sav /XF Save_Settings.sav /MIR /COPY:DATS /R:2 /W:5 /NP /NJH /NJS /LOG+:%LogFile% /TEE
+ROBOCOPY "%DestDir%" %BackupDir% *.sav /XF Save_Settings.sav /MIR /COPY:DATS /R:2 /W:5 /NP /NJH /NJS /LOG+:%LogFile% /TEE
 IF %ERRORLEVEL% GEQ 8 (
     ECHO WARNING: Errors occurred during pre-backup to %BackupDir%. Check log. >> %LogFile%
     ECHO WARNING: Errors occurred during pre-backup to %BackupDir%. Check log.
@@ -112,7 +96,7 @@ ECHO Starting MAIN COPY: Copying files from %SourceDir% to %DestDir%...
 ECHO MAIN COPY Phase - %DATE% %TIME% >> %LogFile%
 REM Main copy operation from Source to Destination
 REM /IS ensures all source files overwrite destination files
-ROBOCOPY %SourceDir% %DestDir% *.sav /XF Save_Settings.sav /E /IS /COPY:DATS /NP /NDL /NJH /NJS /LOG+:%LogFile% /TEE /R:3 /W:5
+ROBOCOPY "%SourceDir%" "%DestDir%" *.sav /XF Save_Settings.sav /E /IS /COPY:DATS /NP /NDL /NJH /NJS /LOG+:%LogFile% /TEE /R:3 /W:5
 
 REM Note: /E copies all subdirectories, including empty ones.
 REM Note: /IS includes "Same" files, forcing overwrite even if files seem identical.
