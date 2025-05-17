@@ -3,3 +3,5 @@ copy.log
 
 # Ignore sensitive files
 paths.ini
+
+backup/
